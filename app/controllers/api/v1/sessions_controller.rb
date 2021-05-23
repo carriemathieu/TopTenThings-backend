@@ -13,8 +13,8 @@ class Api::V1::SessionsController < ApplicationController
         end
     end
     
-    def
+    #def
         
-    end
+    #end
 
 end
