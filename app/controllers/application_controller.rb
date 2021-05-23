@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::API
-    
-    # test for log in
+    include ::ActionController::Cookies
+
     def current_user
         User.find_by(id: session[:user_id])
     end
