@@ -2,7 +2,7 @@ class Api::V1::ListsController < ApplicationController
     def index
         @lists = List.all
     
-        render json: ListsSerializer(@lists)
+        render json: ListsSerializer.new(@lists)
     end
 end
 
