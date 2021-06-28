@@ -2,14 +2,14 @@ class Api::V1::ListsController < ApplicationController
     def index
         @lists = List.all
     
-        render json: ListsSerializer.new(@lists)
+        render json: ListSerializer.new(@lists)
     end
 
     def create
         @list = List.new(list_params)
 
         if @list.save
-          render json: ListsSerializer.new(@list), status: :created
+          render json: ListSerializer.new(@list), status: :created
         else
           resp = {
             error: @list.errors.full_messages.to_sentence
@@ -20,8 +20,8 @@ class Api::V1::ListsController < ApplicationController
 
     private
 
-    def user_params
-        params.require(:list).permit(:category, :list_title, :last_content, :user_id)
+    def list_params
+        params.require(:list).permit(:category, :list_title, :list_content, :user_id)
     end
 end
 
