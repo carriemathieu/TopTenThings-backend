@@ -1,4 +1,4 @@
-class ListsSerializer
+class ListSerializer
   include FastJsonapi::ObjectSerializer
   attributes :list_title, :list_content, :category, :user
 
