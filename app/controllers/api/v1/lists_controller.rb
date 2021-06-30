@@ -6,8 +6,10 @@ class Api::V1::ListsController < ApplicationController
     end
 
     def create
+      byebug
         @list = List.new(list_params)
-
+        @category = Category.find_or_create_by(category_id: category.id)
+        
         if @list.save
           render json: ListSerializer.new(@list), status: :created
         else
@@ -21,7 +23,7 @@ class Api::V1::ListsController < ApplicationController
     private
 
     def list_params
-        params.require(:list).permit(:category, :list_title, :list_content, :user_id)
+        params.require(:list).permit(:category_id, :list_title, :user_id, :list_content => [])
     end
 end
 

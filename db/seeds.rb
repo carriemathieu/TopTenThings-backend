@@ -8,6 +8,8 @@
 User.create(first_name: "Carrie", last_name: "Mathieu", email: "test@test.com", password: "password")
 
 Category.create(name: "Movies")
+Category.create(name: "Music")
+Category.create(name: "Education")
 
 List.create(list_title: "10 Things You Didn't Know About Star Wars", list_content: ["Yoda was almost played by a monkey", "‘Ewok’ is never actually said in the original trilogy", "Return of the Jedi almost had a very different ending.", "Depending on the movie, Yoda has a different number of toes.", "Star Wars and 2001: A Space Odyssey had the same production crew.", "E.T. was in The Phantom Menace (kind of).", "Chewbacca’s voice is a mix of other animals.", "Lightsaber noises came from an old television.", "Harrison Ford almost wasn’t.", "Darth Vader is banned from all official Star Wars parties."], user_id: 1, category_id: 1)
 
