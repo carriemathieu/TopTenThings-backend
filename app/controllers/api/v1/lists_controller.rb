@@ -8,8 +8,9 @@ class Api::V1::ListsController < ApplicationController
     def create
       byebug
         @list = List.new(list_params)
-        @category = Category.find_or_create_by(category_id: category.id)
-        
+        cat_id = params["category_id"].to_i
+        @category = Category.find_or_create_by(id: cat_id)
+
         if @list.save
           render json: ListSerializer.new(@list), status: :created
         else
