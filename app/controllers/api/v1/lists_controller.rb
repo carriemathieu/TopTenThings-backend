@@ -6,6 +6,7 @@ class Api::V1::ListsController < ApplicationController
     end
 
     def create
+        # @list = current_user.lists.build(list_params)
         @list = List.new(list_params)
 
         if @list.save
