@@ -6,13 +6,25 @@ class Api::V1::ListsController < ApplicationController
     end
 
     def create
-      # byebug
         @list = List.new(list_params)
-        # cat_id = params["category_id"].to_i
-        # @category = Category.find_or_create_by(id: cat_id)
 
         if @list.save
           render json: ListSerializer.new(@list), status: :created
+        else
+          resp = {
+            error: @list.errors.full_messages.to_sentence
+          }
+          render json: resp, status: :unprocessable_entity
+        end
+    end
+
+    def update
+        # @list = List.find_by(id: params[list.id])
+        # cat_id = params["category_id"].to_i
+        # @category = Category.find_or_create_by(id: cat_id)
+
+        if @list.update(list_params)
+          render json: ListSerializer.new(@list), status: :updated
         else
           resp = {
             error: @list.errors.full_messages.to_sentence
