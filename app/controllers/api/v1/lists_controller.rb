@@ -6,10 +6,10 @@ class Api::V1::ListsController < ApplicationController
     end
 
     def create
-      byebug
+      # byebug
         @list = List.new(list_params)
-        cat_id = params["category_id"].to_i
-        @category = Category.find_or_create_by(id: cat_id)
+        # cat_id = params["category_id"].to_i
+        # @category = Category.find_or_create_by(id: cat_id)
 
         if @list.save
           render json: ListSerializer.new(@list), status: :created
