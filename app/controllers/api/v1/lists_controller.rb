@@ -20,12 +20,10 @@ class Api::V1::ListsController < ApplicationController
     end
 
     def update
-        # @list = List.find_by(id: params[list.id])
-        # cat_id = params["category_id"].to_i
-        # @category = Category.find_or_create_by(id: cat_id)
-
+        @list = List.find_by(id: params["listId"])
+        
         if @list.update(list_params)
-          render json: ListSerializer.new(@list), status: :updated
+          render json: ListSerializer.new(@list), status: :ok
         else
           resp = {
             error: @list.errors.full_messages.to_sentence
