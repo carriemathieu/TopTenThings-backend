@@ -33,8 +33,10 @@ class Api::V1::ListsController < ApplicationController
     end
 
     def destroy 
-      if @trip.destroy
-        render json: "List deleted.", status: ok
+      @list = List.find_by(id: params["id"]) 
+      
+      if @list.destroy
+        render json: { data: "List deleted." }, status: :ok
       else
         error_resp = {
           error: "Unable to delete list."
