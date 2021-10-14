@@ -32,6 +32,17 @@ class Api::V1::ListsController < ApplicationController
         end
     end
 
+    def destroy 
+      if @trip.destroy
+        render json: "List deleted.", status: ok
+      else
+        error_resp = {
+          error: "Unable to delete list."
+        }
+        render json: error_resp, status: :unprocessable_entity
+      end
+    end
+
     private
 
     def list_params
