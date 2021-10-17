@@ -1,4 +1,8 @@
 class Api::V1::ListsController < ApplicationController
+    before_action :redirect_if_not_logged_in
+    before_action :set_list, only: [:update, :destroy]
+    before_action :redirect_if_not_list_author, only: [:update, :destroy]
+
     def index
         @lists = List.all
     
@@ -20,7 +24,7 @@ class Api::V1::ListsController < ApplicationController
     end
 
     def update
-        @list = List.find_by(id: params["listId"])
+        # @list = List.find_by(id: params["listId"])
         
         if @list.update(list_params)
           render json: ListSerializer.new(@list), status: :ok
@@ -33,8 +37,8 @@ class Api::V1::ListsController < ApplicationController
     end
 
     def destroy 
-      @list = List.find_by(id: params["id"]) 
-      
+      # @list = List.find_by(id: params["id"]) 
+      # byebug
       if @list.destroy
         render json: { data: "List deleted." }, status: :ok
       else
@@ -50,6 +54,27 @@ class Api::V1::ListsController < ApplicationController
     def list_params
         params.require(:list).permit(:category_id, :list_title, :user_id, :list_content => [])
     end
+
+    def set_list
+      @list = List.find_by(id: params[:id])
+      if !@list || @list == nil
+        error_resp = {
+          error: "Unable to locate this list."
+        }
+        render json: error_resp, status: :unprocessable_entity
+      end
+  end
+
+    def redirect_if_not_list_author
+      if @list.user != current_user
+        error_resp = {
+          error: "You are not authorized to make changes to this list."
+        }
+        render json: error_resp, status: :unprocessable_entity
+          # flash[:alert] = "You are not authorized to make changes to this list."
+          # redirect_to list_path
+      end
+  end
 end
 
 # def index

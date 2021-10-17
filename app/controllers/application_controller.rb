@@ -8,5 +8,9 @@ class ApplicationController < ActionController::API
     def logged_in?
         !!current_user
     end
+
+    def redirect_if_not_logged_in
+        redirect to '/' if !logged_in?
+    end
     
 end
